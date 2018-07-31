@@ -1,0 +1,7 @@
+cgit:
+  lookup:
+    conf:
+      '# 05 contextualization':
+        'root-title': 'Git Server for hoonet.org'
+        'root-desc': 'private repos'
+        'enable-http-clone': '0'

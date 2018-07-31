@@ -1,0 +1,99 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+
+#defaults settings - OS independent, will be merged with and overridden by OS specific settings
+defaults:
+  pkgs:
+    - httpd
+    - cgit
+    - python34-pygments
+
+  service:
+    name: httpd
+    state: running
+    enable: True
+
+  user:
+    name: apache
+    optional_groups:
+      - git
+
+  conffile: '/etc/cgitrc'
+
+  conf:
+    '# 01 cgit config managed by salt, do not edit file manually - changes will be overwritten':
+    '# 02 standard settings':
+      # changed because website is not updated when new repo is created
+      #'cache-size': '0'
+      'css': '/cgit-data/cgit.css'
+      'enable-index-links': '1'
+      'enable-commit-graph': '1'
+      'enable-log-filecount': '1'
+      'enable-log-linecount': '1'
+      'logo': '/cgit-data/cgit.png'
+      #change recommendation: max-stats=week
+      'max-stats': 'quarter'
+      'mimetype.gif': 'image/gif'
+      'mimetype.html': 'text/html'
+      'mimetype.jpg': 'image/jpeg'
+      'mimetype.jpeg': 'image/jpeg'
+      'mimetype.pdf': 'application/pdf'
+      'mimetype.png': 'image/png'
+      'mimetype.svg': 'image/svg+xml'
+
+    '# 03 caching':
+      'nocache': '1'
+      'cache-size': '0'
+      'cache-root-ttl': '0'
+      'cache-repo-ttl': '0'
+      'cache-dynamic-ttl': '0'
+      'cache-static-ttl': '0'
+      'cache-scanrc-ttl': '0'
+      'cache-about-ttl': '0'
+      'cache-snapshot-ttl': '0'
+
+    '# 04 indexing':
+      'robots': 'noindex, nofollow'
+
+    '# 06 filter settings':
+      'source-filter': '/usr/libexec/cgit/filters/syntax-highlighting.py'
+      'about-filter': '/usr/libexec/cgit/filters/about-formatting.sh'
+
+    'without_section_post': |
+       readme=:README.md
+       readme=:readme.md
+       readme=:README.mkd
+       readme=:readme.mkd
+       readme=:README.rst
+       readme=:readme.rst
+       readme=:README.html
+       readme=:readme.html
+       readme=:README.htm
+       readme=:readme.htm
+       readme=:README.txt
+       readme=:readme.txt
+       readme=:README
+       readme=:readme
+       readme=:INSTALL.md
+       readme=:install.md
+       readme=:INSTALL.mkd
+       readme=:install.mkd
+       readme=:INSTALL.mkd
+       readme=:install.mkd
+       readme=:INSTALL.rst
+       readme=:install.rst
+       readme=:INSTALL.html
+       readme=:install.html
+       readme=:INSTALL.htm
+       readme=:install.htm
+       readme=:INSTALL.txt
+       readme=:install.txt
+       readme=:INSTALL
+       readme=:install
+       
+       # 07 gitolite specific settings
+       enable-git-config=1
+       enable-gitweb-owner=1
+       remove-suffix=1
+       project-list=/srv/git/projects.list
+       scan-path=/srv/git/repositories
