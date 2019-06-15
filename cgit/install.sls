@@ -5,4 +5,4 @@
 
 cgit_install__pkg:
   pkg.installed:
-    - pkgs: {{ cgit.pkgs }}
+    - pkgs: {{ cgit.pkgs | tojson }}
